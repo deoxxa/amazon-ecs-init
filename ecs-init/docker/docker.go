@@ -62,7 +62,7 @@ func (c *Client) IsAgentImageLoaded() (bool, error) {
 	}
 	for _, image := range images {
 		for _, repoTag := range image.RepoTags {
-			if repoTag == config.AgentImageName {
+			if repoTag == config.AgentImageName() {
 				return true, nil
 			}
 		}
@@ -160,7 +160,7 @@ func (c *Client) getContainerConfig() *godocker.Config {
 
 	return &godocker.Config{
 		Env:   env,
-		Image: config.AgentImageName,
+		Image: config.AgentImageName(),
 	}
 }
 

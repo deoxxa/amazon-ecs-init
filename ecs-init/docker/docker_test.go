@@ -73,7 +73,7 @@ func TestIsImageLoadedMatches(t *testing.T) {
 
 	mockDocker.EXPECT().ListImages(godocker.ListImagesOptions{All: true}).Return(
 		append(make([]godocker.APIImages, 0), godocker.APIImages{
-			RepoTags: append(make([]string, 0), config.AgentImageName),
+			RepoTags: append(make([]string, 0), config.AgentImageName()),
 		}), nil)
 
 	client := &Client{
@@ -228,8 +228,8 @@ func validateCommonCreateContainerOptions(opts godocker.CreateContainerOptions, 
 	expectKey("ECS_ENABLE_TASK_IAM_ROLE=true", envVariables, t)
 	expectKey("ECS_ENABLE_TASK_IAM_ROLE_NETWORK_HOST=true", envVariables, t)
 
-	if cfg.Image != config.AgentImageName {
-		t.Errorf("Expected image to be %s", config.AgentImageName)
+	if cfg.Image != config.AgentImageName() {
+		t.Errorf("Expected image to be %s", config.AgentImageName())
 	}
 
 	hostCfg := opts.HostConfig
